@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mi Playlist con Cajitas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="floating deco-1">💙</div>
+  <div class="floating deco-2">🥭</div>
+  <div class="floating deco-3">💙</div>
+
+  <header class="hero">
+    <h1 class="title">
+      <span class="title-heart">💙</span>
+      Canciones Especiales
+      <span class="title-mango">🥭</span>
+    </h1>
+    <p class="subtitle">Un rincón bonito para guardar lo que suena a nosotros</p>
+  </header>
+
+  <main class="container">
+
+    <!-- 1 -->
+    <section class="card">
+      <button class="acordeon">
+        <span class="pill">#1</span>
+        Esta canción es con la primera que me identifiqué con vos y la canción de nosotros
+        <span class="indicator">+</span>
+      </button>
+      <div class="panel">
+        <a class="song" href="https://youtu.be/PCYipI3VxHA" target="_blank" rel="noopener">
+          <span class="emoji">💙</span> Palabras sobran
+        </a>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="card">
+      <button class="acordeon">
+        <span class="pill">#2</span>
+        Esta es por la que nunca vamos a poder estar en contacto 0
+        <span class="indicator">+</span>
+      </button>
+      <div class="panel">
+        <a class="song" href="https://youtu.be/tmyLY6wDx2M" target="_blank" rel="noopener">
+          <span class="emoji">🥭</span> 444
+        </a>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="card">
+      <button class="acordeon">
+        <span class="pill">#3</span>
+        Esta es una de las que yo siempre te voy a recordar
+        <span class="indicator">+</span>
+      </button>
+      <div class="panel">
+        <a class="song" href="https://youtu.be/MS4b11sLHwg" target="_blank" rel="noopener">
+          <span class="emoji">💙</span> Polos Opuestos
+        </a>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="card">
+      <button class="acordeon">
+        <span class="pill">#4</span>
+        Esta es porque ya no voy a poder estar con vos y me toca estar
+        <span class="indicator">+</span>
+      </button>
+      <div class="panel">
+        <a class="song" href="https://youtu.be/7FN9cPPfHK8" target="_blank" rel="noopener">
+          <span class="emoji">🥭</span> Detrás de tu alma
+        </a>
+      </div>
+    </section>
+
+    <!-- Grupo -->
+    <section class="card">
+      <button class="acordeon">
+        <span class="pill">#5</span>
+        Estas otras son las que siempre te dediqué y ahora pienso en vos
+        <span class="indicator">+</span>
+      </button>
+      <div class="panel panel-grid">
+        <a class="song" href="https://youtu.be/3_trmNLCj30" target="_blank" rel="noopener"><span class="emoji">💙</span> Mariposas en el pecho</a>
+        <a class="song" href="https://youtu.be/rpDgBiVopiU" target="_blank" rel="noopener"><span class="emoji">🥭</span> Reina (mora)</a>
+        <a class="song" href="https://youtu.be/1wCW8JbWr0U" target="_blank" rel="noopener"><span class="emoji">💙</span> PPC</a>
+        <a class="song" href="https://youtu.be/feFKZjh8Xlo" target="_blank" rel="noopener"><span class="emoji">🥭</span> Fantasía</a>
+        <a class="song" href="https://youtu.be/5KpA82OkKaI" target="_blank" rel="noopener"><span class="emoji">💙</span> Me Gusta CC</a>
+        <a class="song" href="https://youtu.be/vch3Pr4IMyo" target="_blank" rel="noopener"><span class="emoji">🥭</span> Reina (roa)</a>
+        <a class="song" href="https://youtu.be/00QVU7voMq8" target="_blank" rel="noopener"><span class="emoji">💙</span> Eres mi sueño</a>
+      </div>
+    </section>
+
+  </main>
+
+  
+  <script>
+    // Acordeón suave con indicador +/–
+    var acc = document.getElementsByClassName("acordeon");
+    for (var i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        var indicator = this.querySelector('.indicator');
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+          if (indicator) indicator.textContent = '+';
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+          if (indicator) indicator.textContent = '–';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
