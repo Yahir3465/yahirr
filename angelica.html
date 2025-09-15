@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cajita Sorpresa para Angelica</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(135deg, #f7c6ff, #c6e6ff);
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* ---- Cajita ---- */
+    .box {
+      position: relative;
+      width: 220px;
+      height: 150px;
+      background: #ff5e78;
+      border-radius: 10px;
+      cursor: pointer;
+      overflow: hidden;
+      z-index: 10;
+      transition: transform 1s ease, opacity 1s ease;
+    }
+
+    .lid {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      top: 0;
+      background: #ff7b99;
+      transition: transform 1s ease;
+    }
+
+    .lid.left {
+      left: 0;
+      border-right: 2px solid #fff;
+    }
+
+    .lid.right {
+      right: 0;
+      border-left: 2px solid #fff;
+    }
+
+    .ribbon {
+      position: absolute;
+      width: 40px;
+      height: 100%;
+      background: gold;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* animación cuando abre */
+    .box.open .lid.left {
+      transform: translateX(-100%);
+    }
+    .box.open .lid.right {
+      transform: translateX(100%);
+    }
+
+    /* efecto desaparecer después de abrir */
+    .box.fade-out {
+      transform: translateY(300px) scale(0.5);
+      opacity: 0;
+    }
+
+    /* ---- Tarjeta ---- */
+    .card {
+      display: none;
+      text-align: center;
+      z-index: 20;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    .photos {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .card img {
+      max-width: 200px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .card img:hover {
+      transform: scale(1.05);
+    }
+
+    .card h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #fff;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+    }
+
+    .card h2 {
+      margin: 0.5rem 0;
+      font-size: 1.8rem;
+      color: #ffeb3b;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    }
+
+    .card p {
+      font-size: 1.2rem;
+      color: #fff;
+      margin: 0.3rem 0;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="confetti"></div>
+
+  <!-- Cajita con tapas -->
+  <div class="box" id="box">
+    <div class="lid left"></div>
+    <div class="lid right"></div>
+    <div class="ribbon"></div>
+  </div>
+
+  <!-- Tarjeta con fotos -->
+  <article class="card" id="card">
+    <div class="photos">
+      <img src="Angelica1.jpg" alt="Foto 1 de Angelica">
+      <img src="Angelica2.jpg" alt="Foto 2 de Angelica">
+      <img src="Angelica3.jpg" alt="Foto 3 de Angelica">
+    </div>
+    <h1>¡Feliz Cumpleaños!</h1>
+    <h2>Madre</h2>
+    <p>Te amo y gracias por siempre estar conmigo,</p>
+    <p>y por ser como mi amiga y madre a la vez.</p>
+  </article>
+
+  <script>
+    const box = document.getElementById('box');
+    const card = document.getElementById('card');
+    const confettiContainer = document.querySelector('.confetti');
+
+    // Crear confeti
+    function createConfettiPiece() {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'absolute';
+      confetti.style.width = '10px';
+      confetti.style.height = '10px';
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360},100%,50%)`;
+      confetti.style.top = '-10px';
+      confetti.style.left = `${Math.random() * window.innerWidth}px`;
+      confetti.style.opacity = '0.8';
+      confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+      confettiContainer.appendChild(confetti);
+
+      let fall = setInterval(() => {
+        let top = parseFloat(confetti.style.top);
+        if (top > window.innerHeight) {
+          confetti.remove();
+          clearInterval(fall);
+        } else {
+          confetti.style.top = top + 5 + 'px';
+        }
+      }, 30);
+    }
+
+    // Evento al abrir la caja
+    box.addEventListener('click', () => {
+      // abre tapas
+      box.classList.add('open');
+
+      // después de abrir, desvanecer y mostrar tarjeta
+      setTimeout(() => {
+        box.classList.add('fade-out');
+      }, 1000);
+
+      setTimeout(() => {
+        box.style.display = 'none';
+        card.style.display = 'block';
+      }, 2000);
+
+      // lanzar confeti
+      for (let i = 0; i < 100; i++) {
+        setTimeout(createConfettiPiece, i * 20);
+      }
+    });
+  </script>
+</body>
+</html>
